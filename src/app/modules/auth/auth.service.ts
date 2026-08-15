@@ -42,6 +42,7 @@ const register = async (payload: IRegisterPayload): Promise<IAuthResult> => {
 
 const login = async (payload: ILoginPayload): Promise<IAuthResult> => {
   const user = await User.findOne({ email: payload.email });
+
   if (!user) {
     throw new AppError(status.UNAUTHORIZED, "Invalid credentials");
   }

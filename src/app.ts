@@ -1,8 +1,10 @@
 import express, { Application } from "express"
-import dns from 'dns';
+
 import { connectDB } from "./app/config/db";
 import { indexRoutes } from "./routes";
 import cookieParser from 'cookie-parser'
+import { notFound } from "./app/errorHelpers/notFound";
+import { globalErrorHandler } from "./app/errorHelpers/globalErrorHandler";
 
 const app: Application = express();
 
@@ -10,7 +12,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
 
-dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 
 //connect to database
 connectDB()
@@ -27,5 +29,9 @@ app.use('/api', indexRoutes)
 app.get("/", (req, res) => {
   res.send("API is running12ffff");
 });
+
+
+app.use(notFound);
+app.use(globalErrorHandler);
 
 export default app
