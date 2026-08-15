@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.aggregationRoutes = void 0;
+const express_1 = require("express");
+const aggregation_controller_1 = require("./aggregation.controller");
+const auth_1 = require("../../../middleware/auth");
+const router = (0, express_1.Router)();
+router.get("/users/by-interests", auth_1.requireAuth, auth_1.requireAdmin, aggregation_controller_1.aggregationControllers.groupUsersByInterests);
+router.get("/user/posts/:userId", auth_1.requireAuth, aggregation_controller_1.aggregationControllers.getUserPosts);
+exports.aggregationRoutes = router;

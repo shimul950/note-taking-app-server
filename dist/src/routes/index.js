@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.indexRoutes = void 0;
+const express_1 = require("express");
+const auth_route_1 = require("../app/modules/auth/auth.route");
+const admin_route_1 = require("../app/modules/admin/admin.route");
+const note_route_1 = require("../app/modules/note/note.route");
+const post_route_1 = require("../app/modules/post/post.route");
+const aggregation_route_1 = require("../app/modules/aggregation/aggregation.route");
+const router = (0, express_1.Router)();
+router.use("/auth", auth_route_1.authRoutes);
+router.use("/admin", admin_route_1.adminRoutes);
+router.use("/note", note_route_1.noteRoutes);
+router.use("/post", post_route_1.postRoutes);
+router.use("/aggregation", aggregation_route_1.aggregationRoutes);
+exports.indexRoutes = router;
