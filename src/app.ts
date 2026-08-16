@@ -1,5 +1,5 @@
 import express, { Application } from "express"
-
+import cors from "cors"
 import { connectDB } from "./app/config/db";
 import { indexRoutes } from "./routes";
 import cookieParser from 'cookie-parser'
@@ -11,6 +11,11 @@ const app: Application = express();
 //middleware to parse JSON bodies
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
 
 
 
