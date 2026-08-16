@@ -18,6 +18,17 @@ const createNote = catchAsync(async (req: AuthRequest, res: Response) => {
   });
 });
 
+const getNoteById = catchAsync(async (req: AuthRequest, res: Response) => {
+  const note = await noteServices.getNoteById(req.user!.id, req.params.id as string);
+
+  sendResponce(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Note retrieved successfully",
+    data: note,
+  });
+});
+
 const listMyNotes = catchAsync(async (req: AuthRequest, res: Response) => {
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 10;
@@ -59,4 +70,5 @@ export const noteControllers = {
   listMyNotes,
   updateNote,
   deleteNote,
+  getNoteById
 };

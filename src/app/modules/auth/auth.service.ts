@@ -69,7 +69,21 @@ const login = async (payload: ILoginPayload): Promise<IAuthResult> => {
   };
 };
 
+const getMe = async (userId: string) => {
+  const user = await User.findById(userId).select("-password");
+  if (!user) {
+    throw new AppError(status.NOT_FOUND, "User not found");
+  }
+  return user;
+};
+
+const logout = async () => {
+  return null;
+};
+
 export const authServices = {
   register,
   login,
+  getMe,
+  logout
 };

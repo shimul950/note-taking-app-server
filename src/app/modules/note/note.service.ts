@@ -14,6 +14,16 @@ const createNote = async (ownerId: string, payload: ICreateNotePayload) => {
   return note;
 };
 
+const getNoteById = async (ownerId: string, noteId: string) => {
+  const note = await Note.findOne({ _id: noteId, owner: ownerId });
+
+  if (!note) {
+    throw new AppError(status.NOT_FOUND, "Note not found");
+  }
+
+  return note;
+};
+
 const listMyNotes = async (ownerId: string, { page = 1, limit = 10 }: IPaginationQuery) => {
   const [notes, total] = await Promise.all([
     Note.find({ owner: ownerId })
@@ -55,4 +65,5 @@ export const noteServices = {
   listMyNotes,
   updateNote,
   deleteNote,
+  getNoteById
 };
